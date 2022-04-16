@@ -16,7 +16,7 @@ const client = algoliasearch(
 const index = client.initIndex(process.env.NEXT_PUBLIC_ALGOLIA_INDEX as string);
 
 const Home: NextPage = () => {
-  // const [items, setItems] = useState({ ids: [], entities: {} });
+  const [items, setItems] = useState({ ids: [], entities: {} });
   const [activeId, setActiveId] = useState('0');
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,7 +29,7 @@ const Home: NextPage = () => {
     });
   };
 
-  const items = normalizeData(dummyData, 'id');
+  // const items = normalizeData(dummyData, 'id');
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">

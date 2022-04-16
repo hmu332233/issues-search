@@ -1,34 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+  <h1>ISSUES SEARCH</h1>
+  <p align="center">
+    Simple page for github issue search with Algolia
+    <br />
+    <a href="https://github.com/hmu332233/issues-search"><strong>Site »</strong></a>
+  </p>
+</div>
 
-## Getting Started
+<br/><br/>
 
-First, run the development server:
+## About Project
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+github issue와 comment를 쉽게 검색하고 내용을 미리보기에 집중하는 간단한 페이지입니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Roadmap
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- [x] Algolia 기반의 검색 UI
+- [ ] 검색된 내용이 없을때 UI
+- [ ] github issue가 작성/수정/삭제 되었을때마다 Algolia에 데이터를 올려주는 action
+- [ ] Algolia 외의 다른 외부 api와도 연동될 수 있는 plugin 시스템
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Contributing
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Contributing은 항상 환영합니다!  
+Star, Issue, Pull Request 등등 모두 감사합니다.
 
-## Learn More
+## License
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Distributed under the MIT License. See `LICENSE` for more information.
