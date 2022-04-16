@@ -8,6 +8,7 @@ import MarkdownView from "components/MarkdownView";
 import { normalizeData } from "utils";
 
 import dummyData from 'utils/dummy';
+import PreviewMenu from "components/PreviewMenu";
 
 const client = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_ID as string,
@@ -16,25 +17,26 @@ const client = algoliasearch(
 const index = client.initIndex(process.env.NEXT_PUBLIC_ALGOLIA_INDEX as string);
 
 const Home: NextPage = () => {
+  const [keyword, setKeyword] = useState('');
   const [items, setItems] = useState<NormalizedData<SearchItem>>({ ids: [], entities: {} });
-  const [activeId, setActiveId] = useState('0');
+
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const { query } = Object.fromEntries(formData);
-
-    index.search(query as string).then(({ hits }) => {
-      // console.log(hits);
-      setItems(normalizeData(hits, 'id'));
-    });
+    setKeyword(query as string);
   };
 
-  // const items = normalizeData(dummyData, 'id');
+  useEffect(() => {
+    index.search(keyword).then(({ hits }) => {
+      setItems(normalizeData(hits, 'id'));
+    });
+  }, [keyword]);
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <div className="modal modal-open py-10">
-        <div className="modal-box w-full max-w-4xl h-full max-h-832">
+        <div className="modal-box flex flex-col w-full max-w-4xl h-full max-h-832">
           <form className="w-full" onSubmit={handleSearch}>
             <input
               name="query"
@@ -43,21 +45,8 @@ const Home: NextPage = () => {
               className="input input-bordered w-full"
             />
           </form>
-          <div className="flex flex-row w-full">
-            <ul className="menu flex-auto w-2/4">
-              {items.ids.map((id) => (
-                <li
-                  className={classNames(id === activeId && 'bordered')}
-                  key={id}
-                  onMouseEnter={() => setActiveId(id)}
-                >
-                  <a>{items.entities[id].title}</a>
-                </li>
-              ))}
-            </ul>
-            <div className="flex-auto w-2/4">
-              <MarkdownView contents={items.entities[activeId]?.contents} />
-            </div>
+          <div className="flex-grow w-full mt-4 overflow-hidden">
+            <PreviewMenu items={items} />
           </div>
         </div>
       </div>
