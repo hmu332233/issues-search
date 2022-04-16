@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import algoliasearch from "algoliasearch/lite";
+
+import classNames from "classnames";
+
 import MarkdownView from "components/MarkdownView";
 import { normalizeData } from "utils";
 
@@ -44,6 +47,7 @@ const Home: NextPage = () => {
             <ul className="menu flex-auto w-2/4">
               {items.ids.map((id) => (
                 <li
+                  className={classNames(id === activeId && 'bordered')}
                   key={id}
                   onMouseEnter={() => setActiveId(id)}
                 >
