@@ -19,6 +19,7 @@ github issue와 comment를 쉽게 검색하고 내용을 미리보기에 집중�
 - [ ] 검색된 내용이 없을때 UI
 - [ ] github issue가 작성/수정/삭제 되었을때마다 Algolia에 데이터를 올려주는 action
 - [ ] Algolia 외의 다른 외부 api와도 연동될 수 있는 plugin 시스템
+- [ ] action과 site를 모노레포로 관리
 
 ## Contributing
 
