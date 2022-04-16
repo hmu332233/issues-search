@@ -16,7 +16,7 @@ const client = algoliasearch(
 const index = client.initIndex(process.env.NEXT_PUBLIC_ALGOLIA_INDEX as string);
 
 const Home: NextPage = () => {
-  const [items, setItems] = useState({ ids: [], entities: {} });
+  const [items, setItems] = useState<NormalizedData<SearchItem>>({ ids: [], entities: {} });
   const [activeId, setActiveId] = useState('0');
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
