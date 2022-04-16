@@ -1,28 +1,64 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import { useEffect, useState } from "react";
+import type { NextPage } from "next";
+import algoliasearch from "algoliasearch/lite";
+import MarkdownView from "components/MarkdownView";
+import { normalizeData } from "utils";
 
-import algoliasearch from 'algoliasearch/lite';
-import { useEffect } from 'react';
+import dummyData from 'utils/dummy';
 
-const client = algoliasearch(process.env.NEXT_PUBLIC_ALGOLIA_ID as string, process.env.NEXT_PUBLIC_ALGOLIA_KEY as string);
+const client = algoliasearch(
+  process.env.NEXT_PUBLIC_ALGOLIA_ID as string,
+  process.env.NEXT_PUBLIC_ALGOLIA_KEY as string
+);
 const index = client.initIndex(process.env.NEXT_PUBLIC_ALGOLIA_INDEX as string);
 
 const Home: NextPage = () => {
+  // const [items, setItems] = useState({ ids: [], entities: {} });
+  const [activeId, setActiveId] = useState('0');
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const { query } = Object.fromEntries(formData);
 
-  useEffect(() => {
-    // index.search('t').then(({ hits }) => {
-    //   console.log(hits);
-    // });
-  }, []);
+    index.search(query as string).then(({ hits }) => {
+      // console.log(hits);
+      setItems(normalizeData(hits, 'id'));
+    });
+  };
 
+  const items = normalizeData(dummyData, 'id');
 
   return (
-    <div className={styles.container}>
-      
+    <div className="flex flex-col justify-center items-center h-screen">
+      <div className="modal modal-open py-10">
+        <div className="modal-box w-full max-w-4xl h-full max-h-832">
+          <form className="w-full" onSubmit={handleSearch}>
+            <input
+              name="query"
+              type="text"
+              placeholder="Type here"
+              className="input input-bordered w-full"
+            />
+          </form>
+          <div className="flex flex-row w-full">
+            <ul className="menu flex-auto w-2/4">
+              {items.ids.map((id) => (
+                <li
+                  key={id}
+                  onMouseEnter={() => setActiveId(id)}
+                >
+                  <a>{items.entities[id].title}</a>
+                </li>
+              ))}
+            </ul>
+            <div className="flex-auto w-2/4">
+              <MarkdownView contents={items.entities[activeId]?.contents} />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
