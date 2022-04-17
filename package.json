@@ -5,9 +5,13 @@
     "packages/*"
   ],
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "husky": "^7.0.4",
+    "lerna": "^4.0.0",
+    "lint-staged": "^12.3.8",
+    "prettier": "2.6.2"
   },
   "scripts": {
+    "prepare": "husky install",
     "lerna:create": "lerna create"
   }
 }

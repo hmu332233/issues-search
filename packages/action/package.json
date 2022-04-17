@@ -1,0 +1,29 @@
+{
+  "name": "action",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "Minung Han <hmu332233@gmail.com>",
+  "homepage": "https://github.com/hmu332233/issues-search#readme",
+  "license": "MIT",
+  "main": "lib/action.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.yarnpkg.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hmu332233/issues-search.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/hmu332233/issues-search/issues"
+  }
+}
