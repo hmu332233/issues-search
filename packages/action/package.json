@@ -18,9 +18,12 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "start": "node dist/index.js"
+    "start": "node dist/action.js"
   },
   "devDependencies": {
     "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "@octokit/core": "^3.6.0"
   }
 }
