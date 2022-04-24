@@ -1,4 +1,5 @@
 import { Octokit } from '@octokit/core';
+import algoliasearch from 'algoliasearch';
 
 type SearchItem = {
   id: number;
@@ -11,7 +12,7 @@ type SearchItem = {
 const OWNER = 'hmu332233';
 const REPO = 'tips';
 
-async function action() {
+async function getSearchItems() {
   const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
   const { data: issues } = await octokit.request(
@@ -49,9 +50,22 @@ async function action() {
     }),
   );
 
-  console.log(searchItems);
+  return searchItems;
+}
 
-  // algolia에 추가하기
+const client = algoliasearch(process.env.ALGOLIA_ID, process.env.ALGOLIA_KEY);
+const index = client.initIndex(process.env.ALGOLIA_INDEX);
+
+async function action() {
+  try {
+    const searchItems = await getSearchItems();
+    await index.clearObjects();
+    await index.saveObjects(searchItems, {
+      autoGenerateObjectIDIfNotExist: true,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 (async () => {
