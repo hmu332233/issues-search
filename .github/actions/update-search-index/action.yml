@@ -17,23 +17,26 @@ runs:
   using: 'composite'
   steps:
     - uses: actions/checkout@v2
+      with:
+        repository: hmu332233/issues-search
+        path: issues-search
     - name: Use Node.js 16
       uses: actions/setup-node@v2
       with:
         node-version: 16
-        cache: 'yarn'
+        # cache: 'yarn'
 
     - name: Cache node modules
       uses: actions/cache@v2
       with:
-        path: ./packages/action/node_modules
+        path: ./issues-search/packages/action/node_modules
         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
         restore-keys: ${{ runner.os }}-yarn-
 
     - name: Install
       shell: bash
       run: yarn
-      working-directory: ./packages/action
+      working-directory: ./issues-search/packages/action
 
     # FIXME: 마지막 sha 기준으로 빌드 확인하도록 변경하기
     # - name: Cache build file
@@ -48,7 +51,7 @@ runs:
       if: steps.cache_dist.outputs.cache-hit != 'true'
       shell: bash
       run: yarn build
-      working-directory: ./packages/action
+      working-directory: ./issues-search/packages/action
 
     - name: Execute
       shell: bash
@@ -58,4 +61,4 @@ runs:
         ALGOLIA_ID: ${{ inputs.ALGOLIA_ID }}
         ALGOLIA_KEY: ${{ inputs.ALGOLIA_KEY }}
         ALGOLIA_INDEX: ${{ inputs.ALGOLIA_INDEX }}
-      working-directory: ./packages/action
+      working-directory: ./issues-search/packages/action
