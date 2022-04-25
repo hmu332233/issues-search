@@ -17,16 +17,16 @@ runs:
   using: 'composite'
   steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 16
       uses: actions/setup-node@v2
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 16
         cache: 'yarn'
 
     - name: Cache node modules
       uses: actions/cache@v2
       with:
-        path: ./action/node_modules
+        path: ./packages/action/node_modules
         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
         restore-keys: ${{ runner.os }}-yarn-
 
